@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GaiaFood |
+	{{ title_page }}
+{% endblock %}
+
+{% block body %}
+	{{ include('component/navbar.html.twig', {'categories': categories}) }}
+
+	<div class="container py-5 vh-100">
+		<section class="hero-section">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-lg-8 text-center">
+						<h1 class="display-4">Bienvenue sur
+							<span class="gaiafont">GaïaFood</span>
+							{{ name }}</h1>
+						<p class="lead">Le temple de la nutrition consciente</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="features-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="feature">
+							<i class="fas fa-utensils"></i>
+							<h3>Recettes Santé</h3>
+							<p>Consultez notre collection de recettes saines et équilibrées pour tous les repas de la journée.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="blog-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="card">
+							<div class="card-body">
+								<h2 class="card-title">Articles de Blog Récents</h2>
+								{% if recentArticles|length > 0 %}
+									{% for article in recentArticles %}
+										<div class="recent-article">
+											<h5>{{ article.title }}</h5>
+											<a href="{{ path('app_article_show', {'id': article.id}) }}" class="btn btn-primary">Lire l'article</a>
+										</div>
+									{% endfor %}
+								{% else %}
+									<p>Aucun article récent trouvé.</p>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+					<aside class="col-lg-4">
+						<div class="card border-dark">
+							<div class="card-header">
+								<h5>Mes recettes favorites</h5>
+							</div>
+							<div class="card-body">
+								{% for message in app.flashes('success') %}
+									<div class="alert alert-success">
+										{{ message }}
+									</div>
+								{% endfor %}
+								{% if app.user.getFavoriteRecettes() is not empty %}
+									<ul class="list-group list-group-flush">
+										{% for recette in app.user.getFavoriteRecettes() %}
+											<li class="list-group-item">
+												<h6 class="card-title">
+													<a href="{{ path('app_recette_show', {'id': recette.id}) }}" class="btn btn-primary">
+														{{ recette.title }}
+													</a>
+													<a href="{{ path('recette_remove_from_favorites', {'id': recette.id}) }}" class="btn btn-danger">
+														Supprimer
+													</a>
+												</h6>
+												<!-- Vous pouvez afficher plus d'informations sur la recette ici si vous le souhaitez. -->
+											</li>
+										{% endfor %}
+									</ul>
+								{% else %}
+									<p class="card-text">Vous n'avez pas encore de recettes favorites. Parcourez nos recettes et ajoutez-en à vos favoris!</p>
+								{% endif %}
+							</div>
+						</div>
+					</aside>
+				</div>
+			</div>
+		</section>
+	</div>
+
+	{{ include('component/footer.html.twig') }}
+{% endblock %}

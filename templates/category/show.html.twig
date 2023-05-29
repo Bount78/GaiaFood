@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GaïaFood |
+	{{ title_page }}
+{% endblock %}
+
+{% block body %}
+	{{ include('component/navbar.html.twig') }}
+
+	<div class="container d-flex justify-content-center align-items-center vh-100">
+		<div class="col-lg-8">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title text-center">{{ category.name }}</h5>
+					<ul class="list-group">
+						<li class="list-group-item">
+							<strong>Nom:</strong>
+							{{ category.name }}</li>
+						<li class="list-group-item">
+							<strong>Recettes:</strong>
+							{% for recette in category.fkRecette %}
+								<a class="btn btn-outline-primary my-2" href="{{ path('app_recette_show', {id: recette.id}) }}">
+									{{ recette.title }}
+								</a>
+							{% endfor %}
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{{ include('component/footer.html.twig') }}
+{% endblock %}

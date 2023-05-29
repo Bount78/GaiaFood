@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body_class %}BG-register{% endblock %}
+
+{% block body %}
+	{% for flash_error in app.flashes('verify_email_error') %}
+		<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+	{% endfor %}
+
+	<div class="container">
+		<div class="row justify-content-center align-items-center vh-100">
+			<div class="col-md-6">
+				<div class="card shadow">
+					<div class="card-body">
+						<h1 class="text-center">Inscription</h1>
+
+
+						{{ form_start(registrationForm) }}
+						<div class="form-group">
+							{{ form_label(registrationForm.email, 'Adresse e-mail') }}
+							{{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+						</div>
+
+						<div class="form-group">
+							{{ form_label(registrationForm.LastName, 'Nom') }}
+							{{ form_widget(registrationForm.LastName, {'attr': {'class': 'form-control'}}) }}
+						</div>
+
+						<div class="form-group">
+							{{ form_label(registrationForm.FirstName, 'Prénom') }}
+							{{ form_widget(registrationForm.FirstName, {'attr': {'class': 'form-control'}}) }}
+						</div>
+
+						<div class="form-group">
+							{{ form_label(registrationForm.plainPassword, 'Mot de passe') }}
+							{{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+						</div>
+
+						<div class="form-group form-check">
+							{{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+							{{ form_label(registrationForm.agreeTerms, 'J\'accepte les termes et conditions', {'label_attr': {'class': 'form-check-label'}}) }}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">S'inscrire</button>
+                        <a  href="{{ path('app_login') }}">Déja un compte ?</a>
+                    {{ form_end(registrationForm) }}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	{% endblock %}

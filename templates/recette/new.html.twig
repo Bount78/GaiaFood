@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle recette
+{% endblock %}
+
+{% block body %}
+	{{ include('component/navbar.html.twig', {'categories': categories}) }}
+
+	<div class="container py-5">
+		<div class="row justify-content-center">
+			<div class="col-lg-6">
+				<h1 class="mb-5 text-center">Créer une nouvelle recette</h1>
+
+				<div class="card border-primary mb-3">
+					<div class="card-header bg-primary text-white">
+						<h2 class="m-0">Formulaire de recette</h2>
+					</div>
+					<div class="card-body">
+						{{ form_start(formRecette, {'attr': {'class': 'form'}}) }}
+
+						<div class="form-floating mb-3">
+							{{ form_row(formRecette.title) }}
+						</div>
+						<div class="form-floating mb-3">
+							{{ form_row(formRecette.description) }}
+						</div>
+						<div class="form-floating mb-3">
+							{{ form_row(formRecette.preparationTime) }}
+						</div>
+						<div class="form-floating mb-3">
+							{{ form_row(formRecette.cookingTime) }}
+						</div>
+						<div class="form-floating mb-3">
+							{{ form_row(formRecette.numberPortions) }}
+						</div>
+						<div class="form-floating mb-3">
+							{{ form_row(formRecette.image) }}
+						</div>
+						<div class="form-floating mb-3">
+							{{ form_row(formRecette.instruction) }}
+						</div>
+						<div class="form-floating mb-3">
+							{{ form_row(formRecette.ingredient_text) }}
+						</div>
+						<div class="form-group">
+							<label for="{{ formRecette.categories.vars.id }}" class="form-check-label">Catégories :</label>
+							{{ form_widget(formRecette.categories, {'attr': {'class': 'form-check-inputl'}}) }}
+						</div>
+						{{ form_row(formRecette.save) }}
+
+						{{ form_end(formRecette) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	{{ include('component/footer.html.twig') }}
+{% endblock %}

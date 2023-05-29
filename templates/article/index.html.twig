@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article index
+{% endblock %}
+
+{% block body %}
+	{{ include('component/navbar.html.twig', {'category': categories }) }}
+	<div class="container vh-100">
+		<div class="mb-5 my-3">
+			<h1 class="mb-4 text-center">Liste des articles</h1>
+			<a href="{{ path('app_article_new') }}" class="btn btn-outline-success">Créer un nouvel article</a>
+		</div>
+
+			<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+				{% for article in articles %}
+					<div class="col">
+						<div class="card h-100">
+							<div class="card-body">
+								<h5 class="card-title text-center">{{ article.title }}</h5>
+							</div>
+							<div class="card-footer">
+								<small class="text-muted">
+									Créé le
+									{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}
+								</small>
+							</div>
+							<div class="card-footer">
+								<small class="text-muted">
+									Mis à jour le
+									{{ article.updatedAt ? article.updatedAt|date('Y-m-d H:i:s') : 'N/A' }}
+								</small>
+							</div>
+							<div class="card-footer">
+								<a href="{{ path('app_article_show', {'id': article.id}) }}" class="btn btn-outline-primary">Voir</a>
+								{% if article.user == app.user %}
+								<a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-outline-secondary">Modifier</a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				{% else %}
+					<div class="col">
+						<div class="card">
+							<div class="card-body">
+								<p class="card-text">Aucun enregistrement trouvé</p>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+
+	</div>
+
+	{{ include('component/footer.html.twig') }}
+{% endblock %}

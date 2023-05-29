@@ -1,0 +1,161 @@
+
+
+$primary: #007BFF; //Un bleu vif et énergique qui servira de couleur principale.
+
+$secondary: #ff9b85; //Un orange pêche doux qui servira de couleur secondaire pour compléter le bleu.
+
+$success: #52cc52;// Un vert clair qui symbolise le succès et les réalisations positives en matière d'alimentation saine.
+
+$info: #46b7d9; //Un bleu ciel apaisant pour les informations et les conseils sur l'alimentation saine.
+
+$warning: #ffd97d; //Un jaune doux pour les avertissements et les rappels sur les habitudes alimentaires à éviter.
+
+$danger: #ee6055; //Un rouge vif pour signaler les dangers et les erreurs communes dans l'adoption d'un régime alimentaire sain.
+
+$light: #e8fcf4; //Un vert clair presque blanc pour apporter de la lumière et de la clarté à la conception globale.
+
+$dark: #374d3c; //Un vert foncé pour contraster avec les autres couleurs et apporter de la profondeur et du sérieux à la conception.
+
+
+
+@import "~bootstrap/scss/bootstrap";
+
+@font-face {
+    font-family: 'Rough Anthem';
+    src: url('../fonts/title_web/Rough\ Anthem.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+// police de caractères pour le titre GaiaFood
+$rough-anthem: 'Rough Anthem', sans-serif;
+
+// Définir une variable pour les propriétés de l'arrière-plan communes
+$bg-properties: no-repeat center center / cover;
+
+.font-webname, .gaiafont {
+    font-family: $rough-anthem;
+
+    &.font-webname {
+        font-size: 5vw;
+    }
+}
+
+#slideshow {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: $bg-properties;
+    opacity: 0;
+    transition: opacity 5s;
+}
+
+.BG-login, .BG-register {
+    background: $bg-properties;
+
+    &.BG-login {
+        background-image: url('../images/BG/BG-login.jpg');
+    }
+
+    &.BG-register {
+        background-image: url('../images/BG/BG-register.jpg');
+    }
+}
+
+.bg-image {
+    height: 300px;
+    background: $bg-properties;
+}
+
+.btn-outline-primary:hover {
+    opacity: 0.7;
+}
+
+.article {
+  background-color: #f3fcf5;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .article-title {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .article-content {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+  }
+
+  .article-info {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+
+    .article-info-item {
+      margin-bottom: 10px;
+    }
+
+    .info-label {
+      font-weight: bold;
+      color: #777;
+    }
+
+    .info-value {
+      color: #333;
+    }
+  }
+  
+}
+
+.comment {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+
+  .comment-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+    .comment-author {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .comment-date {
+      font-size: 14px;
+      color: #888;
+    }
+  }
+
+  .comment-content {
+    p {
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 0;
+    }
+  }
+}
+
+.profile-image {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 50%;
+}

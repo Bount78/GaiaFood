@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+
+	<div id="slideshow">
+		<div class="background"></div>
+		<div class="background"></div>
+	</div>
+
+	<div class="container p-3">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="card shadow mb-3">
+					<div class="card-body">
+						<h1 class="text-center mb-3 font-webname">{{ text_content('welcome.welcome_text') }}</h1>
+
+						<img src="{{ asset('build/images/logo.svg') }}" alt="Logo GaiaFood" style="max-width: 200px;" class="mx-auto d-block mb-5">
+						<p class="lead text-center">{{ text_content('welcome.accroche_text') }}</p>
+
+						<p class="text-justify">{{ text_content('welcome.paragraph1_text') }}</p>
+						<p class="text-justify">{{ text_content('welcome.paragraph2_text') }}</p>
+						<p class="text-justify">{{ text_content('welcome.paragraph3_text') }}</p>
+
+						<h5 class="text-center">{{ text_content('welcome.accroche2_text') }}</h5>
+
+						<!-- Ajoutez ici d'autres informations de description si nécessaire -->
+					</div>
+				</div>
+			</div>
+			<aside class="col-md-4">
+				<div class="card shadow">
+					<div class="card-body text-center">
+						<div class="mb-4">
+							<a href="{{ path('app_register') }}" class="btn btn-outline-primary btn-lg m-auto">Inscription</a>
+							<a href="{{ path('app_login') }}" class="btn btn-outline-primary btn-lg">Connexion</a>
+						</div>
+						<div>
+							<img src="{{ asset('build/images/profil/fondateur.png') }}" class="mx-auto d-block mb-3 rounded-circle border border-primary col-5" alt="photo fondateur">
+							<h6 class="text-center">{{ text_content('welcome.profil_title_text') }}</h6>
+							<p class="text-justify">{{ text_content('welcome.profil1_text') }}</p>
+							<p class="text-justify">{{ text_content('welcome.profil2_text') }}</p>
+							<p class="text-justify">{{ text_content('welcome.profil3_text') }}</p>
+						</div>
+					</div>
+				</div>
+			</aside>
+		</div>
+	</div>
+
+	<footer class="fixed-bottom bg-light footer mt-5">
+		<div class="container text-center">
+			<p class="text-muted">Contactez-nous :
+				<a href="mailto:{{ text_content('mail.contact') }}">{{ text_content('mail.contact') }}</a>
+			</p>
+
+		</div>
+	</footer>
+{% endblock %}

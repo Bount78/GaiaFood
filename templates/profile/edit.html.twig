@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le profil
+{% endblock %}
+
+{% block body %}
+	{{ include('component/navbar.html.twig', {'categories': categories}) }}
+	<div class="container my-5 vh-100">
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header">Modifier le profil</div>
+					<div class="card-body">
+						<div class="text-center mb-4">
+							{% if user.profileImage %}
+								<img src="{{ asset('build/images/profil/users/' ~ user.profileImage) }}" alt="Image de profil" class="img-fluid rounded-circle profile-image">
+							{% else %}
+								<img src="{{ asset('build/images/profil/profile_user.png') }}" alt="Image de profil par défaut" class="img-fluid rounded-circle col-6">
+							{% endif %}
+						</div>
+						{{ form_start(form) }}
+						{{ form_row(form.email) }}
+						{{ form_row(form.LastName) }}
+						{{ form_row(form.FirstName) }}
+						{{ form_widget(form.profileImage) }}
+						<div class="text-center">
+							<button type="submit" class="btn btn-primary">Enregistrer</button>
+						</div>
+						{{ form_end(form) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    	{{ include('component/footer.html.twig') }}
+{% endblock %}

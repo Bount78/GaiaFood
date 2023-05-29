@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer la recette{% endblock %}
+
+{% block body %}
+{{ include('component/navbar.html.twig', {'categories': categories}) }}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center mt-3">Editer la recette</h1>
+            {{ include('recette/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+            <div class="mt-3 text-center">
+                <a href="{{ path('app_recette_index') }}" class="btn btn-secondary btn-lg col-12">Retour à la liste</a>
+            </div>
+            <div class="mt-3 mb-5">
+                {{ include('recette/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+</div>
+{{ include('component/footer.html.twig') }}
+{% endblock %}
+
+

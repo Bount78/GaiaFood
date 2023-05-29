@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GaiaFood | article
+{% endblock %}
+
+{% block body %}
+	{{ include('component/navbar.html.twig', {'categories': categories }) }}
+	<div class="container-fluid mb-5 col-10">
+		<div class="row my-5">
+			<div class="col-lg-10">
+				<article class="article">
+					<h1 class="article-title text-center mb-5">{{ article.title }}</h1>
+					<div class="article-content">{{ article.content|raw }}</div>
+				</article>
+			</div>
+			<div class="col-lg-2">
+				<aside class="article-info mb-3">
+					<div class="article-info-item">
+						<span class="info-label">Publié le :</span>
+						<span class="info-value">{{ article.createdAt ? article.createdAt|date('d-m-Y') : 'Date inconnue' }}</span>
+					</div>
+					<div class="article-info-item">
+						<span class="info-label">Modifié le :</span>
+						<span class="info-value">{{ article.updatedAt ? article.updatedAt|date('d-m-Y') : 'N/A' }}</span>
+					</div>
+					<div class="article-info-item">
+						<span class="info-label">Par :</span>
+						<span class="info-value">{{ article.user ? article.user.FirstName : 'Auteur inconnu' }}</span>
+					</div>
+				</aside>
+				<div class="d-flex flex-column">
+					{% if article.user == app.user %}
+						<a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-outline-primary mb-3">Modifier</a>
+						<a href="{{ path('app_article_delete', {'id': article.id}) }}" class="btn btn-outline-danger mb-3">Supprimer</a>
+					{% endif %}
+					<a href="{{ path('app_home') }}" class="btn btn-outline-primary mb-3">Retour à l'accueil</a>
+					<a href="{{ path('app_article_index') }}" class="btn btn-outline-secondary mb-3">Retour à la liste</a>
+				</div>
+
+			</div>
+		</div>
+		<!-- Affichage des commentaires existants -->
+		{{ include('comments/index.html.twig', {'comments': comments}) }}
+		{{ knp_pagination_render(comments) }}
+
+		<!-- Formulaire d'ajout de commentaire -->
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+		{% endfor %}
+		{% if form_errors(form) %}
+			<div class="alert alert-danger">
+				{{ form_errors(form) }}
+			</div>
+		{% endif %}
+
+		{{ include('comments/form.html.twig', {'form': form}) }}
+	</div>
+
+	{{ include('component/footer.html.twig') }}
+{% endblock %}

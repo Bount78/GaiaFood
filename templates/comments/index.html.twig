@@ -1,0 +1,19 @@
+{% for comment in comments %}
+	<div class="comment col-10">
+		<div class="comment-header">
+			<span class="comment-author">
+				{% if comment.fkUser.getFirstName() is null or comment.fkUser.getFirstName() == '' %}
+					{{ 'de : ' ~ comment.fkUser.getEmail() }}
+				{% else %}
+					{{ 'de : ' ~ comment.fkUser.getFirstName() }}
+				{% endif %}
+			</span>
+			<span class="comment-date">Posté le :
+				{{ comment.CreatedAt|date('d F Y', 'Europe/Paris', 'fr') }}</span>
+		</div>
+		<div class="comment-content">
+			<p>{{ comment.text }}</p>
+		</div>
+	</div>
+
+{% endfor %}

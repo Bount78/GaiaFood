@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GaïaFood | {{ title_page }}{% endblock %}
+
+{% block body %}
+{{ include('component/navbar.html.twig', {'categories': categories}) }}
+{{ include('component/footer.html.twig') }}
+{% endblock %}

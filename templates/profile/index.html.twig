@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil utilisateur
+{% endblock %}
+
+{% block body %}
+	{{ include('component/navbar.html.twig', {'categories': categories}) }}
+	<div class="container-fluid col-10 vh-100 my-5">
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+				<div class="card border-primary">
+					<div class="card-header bg-primary text-white">Profil utilisateur</div>
+					<div class="card-body">
+						<div class="text-center mb-4">
+							{% if user.profileImage %}
+								<img src="{{ asset('build/images/profil/users/' ~ user.profileImage) }}" alt="Image de profil" class="img-fluid rounded-circle profile-image">
+
+							{% else %}
+								<img src="{{ asset('build/images/profil/profile_user.png') }}" alt="Image de profil par défaut" class="img-fluid rounded-circle col-6">
+							{% endif %}
+						</div>
+						<table class="table">
+							<tr>
+								<th>Nom complet :</th>
+								<td>{{ user.getFullName() }}</td>
+							</tr>
+							<tr>
+								<th>Email :</th>
+								<td>{{ user.email }}</td>
+							</tr>
+							<tr>
+								<th>Mot de passe :</th>
+								<td>******</td>
+							</tr>
+							{% for message in app.flashes('success') %}
+								<div class="alert alert-success">
+									{{ message }}
+								</div>
+							{% endfor %}
+							<tr>
+								<th>Action :</th>
+								<td>
+									<a href="{{ path('app_profile_edit')}}" class="btn btn-outline-primary">Modifier le profil</a>
+									<a href="{{ path('app_change_password')}}" class="btn btn-outline-warning">Changer le mot de passe</a>
+
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{{ include('component/footer.html.twig') }}
+{% endblock %}

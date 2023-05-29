@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+{% block title %}GaiaFood | Recette
+{% endblock %}
+
+{% block body %}
+	{{ include('component/navbar.html.twig', {'category': category }) }}
+	<div class="container-fluid col-10 my-5">
+		<div class="row">
+			<div class="col-lg-10">
+				<div class="card mb-4 shadow-sm">
+					<div class="card-img-top bg-image" style="background-image: url('{{ asset('build/images/recette/' ~ recette.image) }}'); height: 300px;"></div>
+					<h5 class="card-header bg-primary text-light py-3">{{ recette.title }}
+						Note Moyenne :
+						{{ moyenne }}
+						⭐</h5>
+					<p class="card-text m-2">{{ recette.description }}</p>
+				</div>
+				<div class="card mb-3">
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">⏱
+							<b>Temps de préparation:</b><br>
+							{{ recette.preparationTime }}
+							minutes</li>
+						<li class="list-group-item">🕛
+							<b>Temps de cuisson:</b><br>
+							{{ recette.cookingTime }}
+							minutes</li>
+						<li class="list-group-item">🍰
+							<b>Nombre de portions:</b><br>
+							{{ recette.numberPortions }}</li>
+						<li class="list-group-item">
+							🌲
+							<b>Catégories:</b><br>
+							{% for category in categories %}
+								{{ category.getName() }}
+								{% if not loop.last %},
+								{% endif %}
+							{% endfor %}
+						</li>
+						<li class="list-group-item">➡
+							<b>Instructions:</b><br>
+							{{ recette.instruction }}</li>
+						<li class="list-group-item">➡
+							<b>Ingrédients:</b><br>
+							{{ recette.getIngredientText() }}
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<aside class="col-lg-2">
+				<div class="row  mb-3">
+					<div class="col">
+						{{ form_start(formNote) }}
+						{{ form_widget(formNote) }}
+						{{ form_end(formNote) }}
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col">
+						<div class="">
+							{% for message in app.flashes('success') %}
+								<div class="alert alert-success">
+									{{ message }}
+								</div>
+							{% endfor %}
+							{% if form_errors(form) %}
+								<div class="alert alert-danger">
+									{{ form_errors(form) }}
+								</div>
+							{% endif %}
+							{% if app.user %}
+								<a class="btn btn-warning d-flex align-items-center mb-3" href="{{ path('recette_add_to_favorites', {'id': recette.id}) }}">
+									<i class="bi bi-heart-fill me-2" style="color: red;"></i>
+									Ajouter aux favoris
+								</a>
+							{% endif %}
+							<div class="d-flex flex-column">
+								<a class="btn btn-outline-secondary mb-3" href="{{ path('app_recette_index') }}">
+									<i class="bi bi-list-check me-2"></i>
+									Retour à la liste
+								</a>
+								{% if app.user in recette.users %}
+									<a class="btn btn-outline-primary mb-3" href="{{ path('app_recette_edit', {'id': recette.id}) }}">
+										<i class="bi bi-pencil-square me-2"></i>
+										Modifier
+									</a>
+									<a class="btn btn-outline-danger mb-3" href="{{ path('app_recette_delete', {'id': recette.id}) }}">
+										<i class="bi bi-trash-fill me-2"></i>
+										Supprimer
+									</a>
+								{% endif %}
+								{# {{ include('recette/_delete_form.html.twig') }} #}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</aside>
+		{{ include('comments/index.html.twig', {'comments': comments}) }}
+		{{ knp_pagination_render(comments) }}
+
+		<!-- Formulaire d'ajout de commentaire -->
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+		{% endfor %}
+		{% if form_errors(form) %}
+			<div class="alert alert-danger">
+				{{ form_errors(form) }}
+			</div>
+		{% endif %}
+
+		{{ include('comments/form.html.twig', {'form': form}) }}
+	</div>
+	{{ include('component/footer.html.twig') }}
+{% endblock %}

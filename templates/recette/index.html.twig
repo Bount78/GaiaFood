@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recette index
+{% endblock %}
+
+{% block body %}
+	{{ include('component/navbar.html.twig', {'category': categories }) }}
+	<div class="container my-5">
+		<h1 class="text-center">Liste des recettes</h1>
+
+		<div class="row justify-content-center">
+			<div class="col-lg-8">
+				<div class="card">
+					<div class="card-body">
+						{% if recettes is not empty %}
+							<ul class="list-group list-group-flush">
+								{% for recette in recettes %}
+									<li class="list-group-item">
+										<div class="row">
+											<div class="col-md-8">
+												<h5>{{ recette.title }}</h5>
+												<p>{{ recette.description }}</p>
+											</div>
+											<div class="col-md-4 text-end">
+												<img src="{{ asset('build/images/recette/' ~ recette.image) }}" alt="{{ recette.title }}" class="img-fluid">
+											</div>
+										</div>
+										<div class="row">
+											<div class="col">
+												<p class="text-muted">
+													Temps de préparation :
+													{{ recette.preparationTime }}
+													minutes
+													                                                    | Temps de cuisson :
+													{{ recette.cookingTime }}
+													minutes
+													                                                    | Portions :
+													{{ recette.numberPortions }}
+												</p>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col">
+												<a href="{{ path('app_recette_show', {'id': recette.id}) }}" class="btn btn-primary">Voir</a>
+                                                {% if app.user in recette.users %}
+                                                    <a href="{{ path('app_recette_edit', {'id': recette.id}) }}" class="btn btn-secondary">Modifier</a>
+                                                    <a href="{{ path('app_recette_delete', {'id': recette.id}) }}" class="btn btn-danger">Supprimer</a>
+                                                {% endif %}
+											</div>
+										</div>
+									</li>
+								{% endfor %}
+							</ul>
+						{% else %}
+							<p>Aucune recette trouvée !</p>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{{ include('component/footer.html.twig') }}
+{% endblock %}
