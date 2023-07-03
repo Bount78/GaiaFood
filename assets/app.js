@@ -40,7 +40,6 @@ var images = [
     'build/images/BG/bg_welcome04.jpg',
     'build/images/BG/bg_welcome05.jpg',
 
-    // Ajoutez autant d'images que vous le souhaitez
 ];
 
 

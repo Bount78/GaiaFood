@@ -41,10 +41,10 @@
 										</div>
 										<div class="row">
 											<div class="col">
-												<a href="{{ path('app_recette_show', {'id': recette.id}) }}" class="btn btn-primary">Voir</a>
+												<a href="{{ path('app_recette_show', {'id': recette.id}) }}" class="btn btn-primary text-light">Voir</a>
                                                 {% if app.user in recette.users %}
-                                                    <a href="{{ path('app_recette_edit', {'id': recette.id}) }}" class="btn btn-secondary">Modifier</a>
-                                                    <a href="{{ path('app_recette_delete', {'id': recette.id}) }}" class="btn btn-danger">Supprimer</a>
+                                                    <a href="{{ path('app_recette_edit', {'id': recette.id}) }}" class="btn btn-secondary text-light">Modifier</a>
+                                                    <a href="{{ path('app_recette_delete', {'id': recette.id}) }}" class="btn btn-danger text-light">Supprimer</a>
                                                 {% endif %}
 											</div>
 										</div>

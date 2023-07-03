@@ -50,11 +50,11 @@ class ProfileController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $uploadedFile = $form->get('profileImage')->getData();
-    
+
             if ($uploadedFile) {
                 $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $newFilename = $originalFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
-    
+                $newFilename = $originalFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+
                 $uploadDirectory = $this->getParameter('upload_directory') . '/profil/users';
                 try {
                     $uploadedFile->move($uploadDirectory, $newFilename);
@@ -64,11 +64,16 @@ class ProfileController extends AbstractController
 
                 $user->setProfileImage($newFilename);
             }
-    
+
             $entityManager->flush();
-    
-            $this->addFlash('success', 'Votre profil a été mis à jour avec succès.');
-    
+
+            flash()
+                ->option('position', 'bottom-right')
+                ->option('timeout', 3000)
+                ->addSuccess('Votre profil a été mis à jour avec succès.');
+
+            // $this->addFlash('success', 'Votre profil a été mis à jour avec succès.');
+
             return $this->redirectToRoute('app_profile');
         }
 
@@ -80,38 +85,38 @@ class ProfileController extends AbstractController
     }
 
 
-     #[Route('/change_password', name: 'app_change_password')]
-     public function changePassword(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
-     {
+    #[Route('/change_password', name: 'app_change_password')]
+    public function changePassword(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
+    {
         $user = $this->getUser();
         if (!$user) {
             return $this->redirectToRoute('app_logout');
 
         }
- 
-         $form = $this->createForm(ChangePasswordType::class);
-         $form->handleRequest($request);
- 
-         if ($form->isSubmitted() && $form->isValid()) {
-             $data = $form->getData();
-             $newPassword = $form['password']['first']->getData();
- 
- 
-             // Hachez et mettez à jour le nouveau mot de passe de l'utilisateur
-             $hashedPassword = $passwordHasher->hashPassword($user, $newPassword);
-             $user->setPassword($hashedPassword);
- 
-             // Enregistrez les modifications dans la base de données
-             $entityManager->persist($user);
-             $entityManager->flush();
- 
-             $this->addFlash('success', 'Votre mot de passe a été changé avec succès.');
-             return $this->redirectToRoute('app_profile'); // Remplacez "app_home" par la route vers votre page d'accueil
-         }
- 
-         return $this->render('profile/change_password.html.twig', [
-             'form' => $form->createView(),
-         ]);
-     }
+
+        $form = $this->createForm(ChangePasswordType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $newPassword = $form['password']['first']->getData();
+
+
+            // Hachez et mettez à jour le nouveau mot de passe de l'utilisateur
+            $hashedPassword = $passwordHasher->hashPassword($user, $newPassword);
+            $user->setPassword($hashedPassword);
+
+            // Enregistrez les modifications dans la base de données
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre mot de passe a été changé avec succès.');
+            return $this->redirectToRoute('app_profile'); // Remplacez "app_home" par la route vers votre page d'accueil
+        }
+
+        return $this->render('profile/change_password.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 
 }

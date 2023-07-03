@@ -25,10 +25,10 @@ class ArticleController extends AbstractController
     {
 
         // Vérifier si l'utilisateur est identifié
-        $current_user = $this->getUser();
-        if (!$current_user) {
-            return $this->redirectToRoute('app_logout');
-        }
+        // $current_user = $this->getUser();
+        // if (!$current_user) {
+        //     return $this->redirectToRoute('app_logout');
+        // }
 
         $catNavbar = $categoryRepository->findAll();
 
@@ -43,10 +43,10 @@ class ArticleController extends AbstractController
     {
 
         // Vérifier si l'utilisateur est identifié
-        $current_user = $this->getUser();
-        if (!$current_user) {
-            return $this->redirectToRoute('app_logout');
-        }
+        // $current_user = $this->getUser();
+        // if (!$current_user) {
+        //     return $this->redirectToRoute('app_logout');
+        // }
 
         $catNavbar = $categoryRepository->findAll();
         $article = new Article();
@@ -81,10 +81,10 @@ class ArticleController extends AbstractController
     {
 
         // Vérifier si l'utilisateur est identifié
-        $current_user = $this->getUser();
-        if (!$current_user) {
-            return $this->redirectToRoute('app_logout');
-        }
+        // $current_user = $this->getUser();
+        // if (!$current_user) {
+        //     return $this->redirectToRoute('app_logout');
+        // }
 
         $categories = $categoryRepository->findAll();
         $article = $articleRepository->find($id);
@@ -97,7 +97,7 @@ class ArticleController extends AbstractController
         $form = $this->createForm(CommentType::class, $commentaire);
         $form->handleRequest($request);
 
-        $commentaires = $commentRepository->findBy(['article' => $article]);
+        $commentaires = $commentRepository->findBy(['article' => $article], ['CreatedAt' => 'DESC']);
 
         $commentaires = $paginator->paginate(
             $commentaires, /* query NOT result */
@@ -137,10 +137,10 @@ class ArticleController extends AbstractController
     {
         
         // Vérifier si l'utilisateur est identifié
-        $current_user = $this->getUser();
-        if (!$current_user) {
-            return $this->redirectToRoute('app_logout');
-        }
+        // $current_user = $this->getUser();
+        // if (!$current_user) {
+        //     return $this->redirectToRoute('app_logout');
+        // }
 
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);

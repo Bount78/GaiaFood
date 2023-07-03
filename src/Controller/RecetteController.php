@@ -128,7 +128,10 @@ class RecetteController extends AbstractController
         $catNavbar = $categoryRepository->findAll();
         // Recherche de la recette spécifique par son ID
         $recette = $recetteRepository->find($id);
-        $commentaires = $commentRepository->findBy(['fk_recette' => $recette]);
+        $commentaires = $commentRepository->findBy(['fk_recette' => $recette], ['CreatedAt' => 'DESC']);
+
+        dd($commentaires);
+
 
 
         $commentaires = $paginator->paginate(
